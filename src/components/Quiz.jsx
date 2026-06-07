@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+Ôªøimport { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ export default function Quiz() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // T?i ng‚n h‡ng d? thi kh?ng l? v‡ ng?u nhiÍn ch?n 10 c‚u
+    // T?i ng√¢n h√†ng d? thi kh?ng l? v√† ng?u nhi√™n ch?n 10 c√¢u
     import('../data/hcm_quiz_verified_public.json').then(module => {
       const allQuestions = module.default.questions || [];
       const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
@@ -54,7 +54,7 @@ export default function Quiz() {
     return (
       <div className="section text-center">
         <div className="container">
-          <h2>–ang t?i ng‚n h‡ng c‚u h?i...</h2>
+          <h2>√êang t?i ng√¢n h√†ng c√¢u h?i...</h2>
         </div>
       </div>
     );
@@ -80,13 +80,13 @@ export default function Quiz() {
         <div className="container">
           <div className="quiz-result-card">
             <div className="quiz-result-icon">{pct >= 80 ? '??' : pct >= 50 ? '??' : '??'}</div>
-            <h2>K?t qu? b‡i ki?m tra</h2>
+            <h2>K?t qu? b√†i ki?m tra</h2>
             <div className="quiz-score-circle" style={{ borderColor: gradeColor }}>
               <span className="quiz-score">{score}/{quizData.length}</span>
               <span className="quiz-pct">{pct}%</span>
             </div>
             <div className="quiz-result-breakdown">
-              <span className="breakdown-correct">? –˙ng: {score}</span>
+              <span className="breakdown-correct">? √ê√∫ng: {score}</span>
               <span className="breakdown-incorrect">? Sai: {quizData.length - score}</span>
             </div>
             <div className="quiz-actions" style={{marginTop: '20px'}}>
@@ -94,8 +94,8 @@ export default function Quiz() {
                 const allQs = [...quizData].sort(() => 0.5 - Math.random()); // Reshuffle for replay?
                 // Actually reloading the page is easier for random 10
                 window.location.reload();
-              }}>L‡m l?i (Ng?u nhiÍn)</button>
-              <button className="btn btn-outline" onClick={() => navigate('/review')}>‘n c‚u sai</button>
+              }}>L√†m l?i (Ng?u nhi√™n)</button>
+              <button className="btn btn-outline" onClick={() => navigate('/review')}>√în c√¢u sai</button>
               {pct >= 50 && (
                 <button className="btn btn-gold" onClick={() => navigate('/certificate?score=' + score + '&total=' + quizData.length)}>
                   Nh?n ch?ng nh?n
@@ -136,7 +136,7 @@ export default function Quiz() {
           >
             <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '15px'}}>
               <span className="quiz-level" style={{ background: levelColors[q.difficulty] || '#FF9800' }}>
-                {q.difficulty === 'easy' ? 'D?' : q.difficulty === 'hard' ? 'KhÛ' : 'Trung bÏnh'}
+                {q.difficulty === 'easy' ? 'D?' : q.difficulty === 'hard' ? 'Kh√≥' : 'Trung b√¨nh'}
               </span>
               <span style={{ fontSize: '0.85rem', color: 'var(--slate)', background: 'var(--cream)', padding: '4px 12px', borderRadius: '20px' }}>
                 {q.chapter_title}
@@ -172,10 +172,10 @@ export default function Quiz() {
                   className={'quiz-feedback ' + (isCorrect ? 'feedback-correct' : 'feedback-incorrect')}
                 >
                   <div className="quiz-feedback-title">
-                    {isCorrect ? '? ChÌnh x·c!' : '? Chua d˙ng!'}
+                    {isCorrect ? '? Ch√≠nh x√°c!' : '? Chua d√∫ng!'}
                     {!isCorrect && (
                       <span className="quiz-feedback-correct-ans" style={{display: 'block', marginTop: '10px'}}>
-                        –·p ·n d˙ng: <strong>{q.options[correctIdx].key}. {q.options[correctIdx].text}</strong>
+                        √ê√°p √°n d√∫ng: <strong>{q.options[correctIdx].key}. {q.options[correctIdx].text}</strong>
                       </span>
                     )}
                   </div>
@@ -190,7 +190,7 @@ export default function Quiz() {
                       onClick={handleNext}
                       style={{flexGrow: 1, justifyContent: 'center'}}
                     >
-                      {current === quizData.length - 1 ? '?? Xem k?t qu?' : 'C‚u ti?p ?'}
+                      {current === quizData.length - 1 ? '?? Xem k?t qu?' : 'C√¢u ti?p ?'}
                     </button>
                   </div>
                 </motion.div>
