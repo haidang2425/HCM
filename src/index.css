@@ -72,12 +72,12 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-size: var(--text-base); font-weight: 600; transition: all var(--transition-base);
   text-decoration: none;
 }
-.btn-primary { background: var(--red-primary); color: var(--white); }
-.btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.btn-primary { background: var(--red-primary); color: #FFFFFF; }
+.btn-primary:hover { background: var(--red-dark); color: #FFFFFF; transform: translateY(-2px); box-shadow: var(--shadow-lg); }
 .btn-gold { background: var(--gold-primary); color: var(--ink); }
-.btn-gold:hover { background: var(--gold-dark); color: var(--white); transform: translateY(-2px); }
+.btn-gold:hover { background: var(--gold-dark); color: #FFFFFF; transform: translateY(-2px); }
 .btn-outline { border: 2px solid var(--red-primary); color: var(--red-primary); background: transparent; }
-.btn-outline:hover { background: var(--red-primary); color: var(--white); }
+.btn-outline:hover { background: var(--red-primary); color: #FFFFFF; }
 .btn-lg { padding: var(--space-4) var(--space-8); font-size: var(--text-lg); }
 .btn-sm { padding: var(--space-2) var(--space-4); font-size: var(--text-sm); }
 .section { padding: var(--space-20) 0; }

@@ -62,9 +62,9 @@ export default function RoomDetail() {
             )}
 
             <motion.div initial={{y:30,opacity:0}} animate={{y:0,opacity:1}} transition={{delay:0.8}} className="room-detail-actions">
-              {parseInt(id) > 0 && <Link to={'/room/' + (parseInt(id)-1)} className="btn btn-outline">← Phòng trước</Link>}
-              {parseInt(id) < 9 && <Link to={'/room/' + (parseInt(id)+1)} className="btn btn-gold">Phòng tiếp →</Link>}
-              {parseInt(id) === 9 && <Link to="/quiz" className="btn btn-gold">Làm bài Quiz →</Link>}
+              {parseInt(id) > 0 && <Link to={'/room/' + (parseInt(id)-1)} className="btn btn-primary">← Phòng trước</Link>}
+              {parseInt(id) < 9 && <Link to={'/room/' + (parseInt(id)+1)} className="btn btn-primary">Phòng tiếp →</Link>}
+              {parseInt(id) === 9 && <Link to="/quiz" className="btn btn-primary">Làm bài Quiz →</Link>}
             </motion.div>
           </div>
         </div>

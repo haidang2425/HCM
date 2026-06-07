@@ -39,7 +39,22 @@ export default function RoomCard({ room, index }) {
           </div>
         )}
       </div>
-      <div className="room-card-icon" style={{ background: colors[room.id], position: 'absolute', right: '20px', top: '140px', border: '4px solid var(--white)' }}>
+      <div className="room-card-icon" style={{ 
+        background: colors[room.id], 
+        position: 'absolute', 
+        right: '20px', 
+        top: '130px', 
+        border: '4px solid var(--white)',
+        width: '60px',
+        height: '60px',
+        borderRadius: '50%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontSize: '1.5rem',
+        boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
+        zIndex: 2
+      }}>
         {icons[room.id]}
       </div>
       <div className="room-card-body" style={{paddingTop: '30px'}}>

@@ -20,10 +20,10 @@ export default function Navbar() {
         </Link>
         
         <div className="nav-controls-mobile" style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
-          <button className="theme-toggle" onClick={() => setSearchOpen(true)} title="Tìm kiếm" style={{fontSize: '1.2rem'}}>
+          <button className="theme-toggle mobile-only" onClick={() => setSearchOpen(true)} title="Tìm kiếm" style={{fontSize: '1.2rem', background: 'none', border: 'none', cursor: 'pointer'}}>
             🔍
           </button>
-          <button className="theme-toggle" onClick={toggleTheme} title="Giao diện Sáng/Tối" style={{fontSize: '1.2rem'}}>
+          <button className="theme-toggle mobile-only" onClick={toggleTheme} title="Giao diện Sáng/Tối" style={{fontSize: '1.2rem', background: 'none', border: 'none', cursor: 'pointer'}}>
             {theme === 'dark' ? '☀️' : '🌙'}
           </button>
           <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
@@ -41,13 +41,13 @@ export default function Navbar() {
           <Link to="/quizbank" className={isActive('/quizbank')} onClick={() => setMenuOpen(false)}>Ngân hàng đề</Link>
           
           <div className="nav-actions" style={{display: 'flex', alignItems: 'center', gap: '15px'}}>
-            <button className="theme-toggle" onClick={() => setSearchOpen(true)} title="Tìm kiếm" style={{fontSize: '1.2rem', cursor: 'pointer', background: 'none', border: 'none'}}>
+            <button className="theme-toggle desktop-only" onClick={() => setSearchOpen(true)} title="Tìm kiếm" style={{fontSize: '1.2rem', cursor: 'pointer', background: 'none', border: 'none'}}>
               🔍
             </button>
-            <button className="theme-toggle" onClick={toggleTheme} title="Giao diện Sáng/Tối" style={{fontSize: '1.2rem'}} id="desktop-theme-toggle">
+            <button className="theme-toggle desktop-only" onClick={toggleTheme} title="Giao diện Sáng/Tối" style={{fontSize: '1.2rem', cursor: 'pointer', background: 'none', border: 'none'}} id="desktop-theme-toggle">
               {theme === 'dark' ? '☀️' : '🌙'}
             </button>
-            <Link to="/quiz" className={'btn btn-gold nav-quiz-btn ' + isActive('/quiz')} onClick={() => setMenuOpen(false)}>Quiz Mini</Link>
+            <Link to="/quiz" className={'btn btn-primary nav-quiz-btn ' + isActive('/quiz')} onClick={() => setMenuOpen(false)}>Quiz Mini</Link>
           </div>
         </div>
       </div>

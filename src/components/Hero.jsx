@@ -15,15 +15,15 @@ export default function Hero() {
           </p>
           <div className="hero-actions">
             <Link to="/rooms" className="btn btn-primary btn-lg">🏛️ Bắt đầu hành trình</Link>
-            <Link to="/timeline" className="btn btn-outline btn-lg">📅 Dòng thời gian</Link>
-            <Link to="/dashboard" className="btn btn-outline btn-lg">📊 Thành tựu đất nước</Link>
+            <Link to="/timeline" className="btn btn-primary btn-lg">📅 Dòng thời gian</Link>
+            <Link to="/dashboard" className="btn btn-primary btn-lg">📊 Thành tựu đất nước</Link>
           </div>
         </motion.div>
-        <motion.div className="hero-scroll" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.5}}>
-          <span>Cuộn xuống để khám phá</span>
-          <div className="scroll-indicator" />
-        </motion.div>
       </div>
+      <motion.div className="hero-scroll" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.5}}>
+        <span>Cuộn xuống để khám phá</span>
+        <div className="scroll-indicator" />
+      </motion.div>
     </section>
   );
 }

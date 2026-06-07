@@ -17,6 +17,8 @@ const Dashboard = React.lazy(() => import('./components/Dashboard'));
 const Quiz = React.lazy(() => import('./components/Quiz'));
 const Certificate = React.lazy(() => import('./components/Certificate'));
 const Theory = React.lazy(() => import('./components/Theory'));
+const QuizBank = React.lazy(() => import('./components/QuizBank'));
+const ReviewWrong = React.lazy(() => import('./components/ReviewWrong'));
 
 function HomePage() {
   return (
@@ -44,6 +46,8 @@ function AnimatedRoutes() {
           <Route path="/map" element={<VietnamMap />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/quiz" element={<Quiz />} />
+          <Route path="/quizbank" element={<QuizBank />} />
+          <Route path="/review" element={<ReviewWrong />} />
           <Route path="/certificate" element={<Certificate />} />
         </Routes>
       </Suspense>
