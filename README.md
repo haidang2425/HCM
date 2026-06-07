@@ -1,363 +1,335 @@
-# Bao tang So - Tu tuong Ho Chi Minh
+# Bảo Tàng Số - Tư Tưởng Hồ Chí Minh
 
 **Digital Museum of Ho Chi Minh Thought**
 
-Du an mon hoc: **Dao duc cach mang va Tu tuong Ho Chi Minh**
-Truong Dai hoc Cong nghe Thong tin (UIT)
+> Dự án môn học: **Đạo đức cách mạng và Tư tưởng Hồ Chí Minh**
+> Trường Đại học Công nghệ Thông tin (UIT)
+
+🌐 **Live Demo:** [https://hcm-blue-psi.vercel.app/#/](https://hcm-blue-psi.vercel.app/#/)
 
 ---
 
-## Muc luc
+## Mục lục
 
-1. [Gioi thieu](#gioi-thieu)
-2. [Tinh nang chinh](#tinh-nang-chinh)
-3. [Yeu cau he thong](#yeu-cau-he-thong)
-4. [Huong dan cai dat](#huong-dan-cai-dat)
-5. [Huong dan chay thu](#huong-dan-chay-thu)
-6. [Huong dung](#huong-dung)
-7. [Cau truc du an](#cau-truc-du-an)
-8. [Huong dan deploy mien phi](#huong-dan-deploy-mien-phi)
-9. [Tech stack](#tech-stack)
-10. [Ghi chu](#ghi-chu)
-
----
-
-## Gioi thieu
-
-Day la san pham **Bao tang So tuong tac** ve cuoc doi, su nghiep va tu tuong cua Chu tich Ho Chi Minh.
-San pham duoc xay dung bang React + Vite, co the chay truc tiep trinh duyet ma khong can may chu.
-
-**Muc tieu:** Khi giang vien quet QR code tren poster, buoc vao mot bao tang so, kham pha lich su,
-hieu tu tuong Ho Chi Minh, trai nghiem cac khu trien lam, tham gia quiz va nhan chung nhan hoan thanh.
+1. [Giới thiệu](#giới-thiệu)
+2. [Tính năng chính](#tính-năng-chính)
+3. [Tech Stack](#tech-stack)
+4. [Cấu trúc dự án](#cấu-trúc-dự-án)
+5. [Yêu cầu hệ thống](#yêu-cầu-hệ-thống)
+6. [Hướng dẫn cài đặt](#hướng-dẫn-cài-đặt)
+7. [Hướng dẫn chạy thử](#hướng-dẫn-chạy-thử)
+8. [Hướng dẫn sử dụng](#hướng-dẫn-sử-dụng)
+9. [Deploy](#deploy)
+10. [Scripts Python](#scripts-python)
+11. [Ghi chú kỹ thuật](#ghi-chú-kỹ-thuật)
 
 ---
 
-## Tinh nang chinh
+## Giới thiệu
 
-| STT | Tinh nang | Mo ta |
+Đây là sản phẩm **Bảo tàng Số tương tác** về cuộc đời, sự nghiệp và tư tưởng của Chủ tịch Hồ Chí Minh. Xây dựng bằng React + Vite, chạy trực tiếp trên trình duyệt mà không cần máy chủ riêng.
+
+**Mục tiêu:** Khi giảng viên quét QR code trên poster, người dùng bước vào một bảo tàng số, khám phá lịch sử, hiểu tư tưởng Hồ Chí Minh, trải nghiệm các khu triển lãm, tham gia quiz và nhận chứng nhận hoàn thành.
+
+---
+
+## Tính năng chính
+
+| STT | Tính năng | Mô tả |
 |-----|-----------|-------|
-| 1 | **10 phong trien lam** | 10 khu vuc tuong ung voi hanh trinh cuoc doi Bac Ho |
-| 2 | **Dong thoi gian** | Cac moc son lich su tu 1911 den nay, click de xem chi tiet |
-| 3 | **Ban do Viet Nam** | SVG ban do tuong tac, hover vao dia danh de xem thong tin |
-| 4 | **Dashboard thanh tuu** | 6 chi so kinh te-xa hoi + 4 achievement counter |
-| 5 | **Quiz 30 cau** | 3 cap do: Co ban (10 cau), Trung binh (10 cau), Nang cao (10 cau) |
-| 6 | **Chung nhan hoan thanh** | Nhap ho ten, xuat file PDF va PNG |
-| 7 | **Thiet ke responsive** | Hien thi dep tren may ban, tablet, dien thoai |
-| 8 | **Animation** | Chuyen canh muot ma, hieu ung scroll, hover |
+| 1 | **10 phòng triển lãm** | 10 khu vực tương ứng với hành trình cuộc đời Bác Hồ |
+| 2 | **Dòng thời gian** | Các mốc son lịch sử từ 1911 đến nay, click để xem chi tiết |
+| 3 | **Bản đồ Việt Nam** | SVG bản đồ tương tác, hover vào địa danh để xem thông tin |
+| 4 | **Dashboard thành tựu** | 6 chỉ số kinh tế-xã hội + 4 achievement counter |
+| 5 | **Quiz 30 câu** | 3 cấp độ: Cơ bản (10 câu), Trung bình (10 câu), Nâng cao (10 câu) |
+| 6 | **Chứng nhận hoàn thành** | Nhập họ tên, xuất file PDF và PNG |
+| 7 | **Thiết kế responsive** | Hiển thị đẹp trên máy bàn, tablet, điện thoại |
+| 8 | **Animation** | Chuyển cảnh mượt mà, hiệu ứng scroll, hover |
 
 ---
 
-## Yeu cau he thong
+## Tech Stack
 
-Truoc khi bat dau, may tinh can co:
-
-1. **Node.js** phien ban 18 tro len
-   - Tai: https://nodejs.org/ (chon LTS)
-   - Kiem tra: mo Terminal, go `node --version`
-   - Neu thay `v18.x.x` hoac `v20.x.x` la duoc
-2. **Trinh duyet** hien dai (Chrome, Firefox, Edge, Safari)
-3. **Git** (khuyen dung de deploy)
-   - Tai: https://git-scm.com/
-   - Kiem tra: `git --version`
+| Công nghệ | Phiên bản | Mục đích |
+|-----------|-----------|----------|
+| React | 19 | Framework chính |
+| Vite | 8.0 | Build tool, dev server |
+| React Router | 7 | Điều hướng (HashRouter) |
+| Framer Motion | 12 | Animation, page transition |
+| Recharts | 3 | Biểu đồ Dashboard |
+| html2canvas | 1.4 | Chụp certificate sang PNG |
+| jsPDF | 4 | Tạo file PDF certificate |
+| CSS Variables | — | Design system, theme |
 
 ---
 
-## Huong dan cai dat
+## Cấu trúc dự án
 
-### Buoc 1: Mo Terminal
-
-- **Windows:** Mo CMD hoac PowerShell (Win + R, go `cmd`, Enter)
-- **Mac:** Mo Terminal (Cmd + Space, go `terminal`)
-- **Linux:** Mo Terminal (Ctrl + Alt + T)
-
-### Buoc 2: Di chuyen den thu muc du an
-
-```bash
-cd D:\HCM
+```
+HCM/
+├── index.html               # File HTML chính
+├── package.json             # Config dự án, dependencies
+├── vite.config.js           # Config Vite
+├── eslint.config.js         # Config ESLint
+├── .gitignore               # Bỏ qua khi push git
+├── README.md                # File hướng dẫn
+│
+├── public/
+│   └── favicon.svg
+│
+├── src/
+│   ├── main.jsx             # Điểm vào React app
+│   ├── App.jsx              # Router + Layout
+│   ├── index.css            # Design system (CSS variables)
+│   ├── App.css              # Component styles
+│   │
+│   ├── data/
+│   │   ├── roomContent.js   # 10 phòng triển lãm
+│   │   ├── quizData.js      # 30 câu hỏi
+│   │   ├── timelineData.js  # 10 mốc lịch sử
+│   │   └── dashboardData.js # Số liệu thành tựu
+│   │
+│   └── components/
+│       ├── Navbar.jsx       # Thanh điều hướng
+│       ├── Hero.jsx         # Trang chủ fullscreen
+│       ├── RoomList.jsx     # Danh sách phòng
+│       ├── RoomCard.jsx     # Card từng phòng
+│       ├── RoomDetail.jsx   # Chi tiết phòng
+│       ├── Timeline.jsx     # Dòng thời gian
+│       ├── VietnamMap.jsx   # Bản đồ SVG
+│       ├── Dashboard.jsx    # Thống kê thành tựu
+│       ├── Quiz.jsx         # Bài kiểm tra
+│       ├── Certificate.jsx  # Chứng nhận hoàn thành
+│       └── Footer.jsx       # Chân trang
+│
+├── Data/                    # Dữ liệu nguồn (txt, pdf)
+│
+├── dist/                    # Sản phẩm build (tự sinh, không commit)
+│
+├── gen_data.py              # Script tạo dữ liệu
+├── build_part1.py           # Script build phần 1
+└── generate_qr.py           # Script tạo QR code
 ```
 
-### Buoc 3: Cai dat thu vien
+---
+
+## Yêu cầu hệ thống
+
+| Yêu cầu | Phiên bản tối thiểu |
+|---------|---------------------|
+| Node.js | 18+ (khuyến dùng 20 LTS) |
+| npm | 9+ |
+| Python | 3.8+ (nếu dùng scripts) |
+| Trình duyệt | Chrome / Firefox / Edge / Safari hiện đại |
+
+**Kiểm tra:**
+```bash
+node --version   # v18.x.x trở lên
+npm --version    # 9.x.x trở lên
+```
+
+---
+
+## Hướng dẫn cài đặt
+
+### Bước 1: Clone repository
+
+```bash
+git clone https://github.com/<username>/HCM.git
+cd HCM
+```
+
+Hoặc nếu đã có source code, mở Terminal tại thư mục dự án.
+
+### Bước 2: Cài đặt thư viện
 
 ```bash
 npm install
 ```
 
-Man hinh se hien:
-- Dong `added X packages`
-- Khong co `ERR!` hay `ERRNO`
-
-> **Neu gap loi:** Thu xoa `node_modules` va `package-lock.json`, chay lai:
->
-> Mac/Linux:
+> **Nếu gặp lỗi:** Xóa cache rồi cài lại:
 > ```bash
-> rm -rf node_modules package-lock.json
-> npm install
-> ```
->
-> Windows:
-> ```bash
-> rmdir /s node_modules
+> # Windows
+> rmdir /s /q node_modules
 > del package-lock.json
+> npm install
+>
+> # Mac/Linux
+> rm -rf node_modules package-lock.json
 > npm install
 > ```
 
 ---
 
-## Huong dan chay thu
+## Hướng dẫn chạy thử
 
-### Cach 1: Dev Server (khuyen dung)
+### Dev Server (khuyến dùng)
 
 ```bash
 npm run dev
 ```
 
-Sau khi chay, terminal se hien:
+Mở trình duyệt tại `http://localhost:5173/`
 
-```
-  VITE vX.X.X  ready in Xms
-  Local:   http://localhost:5173/
-```
-
-Copy link **http://localhost:5173/** vao trinh duyet de xem.
-
-> **Luu y:** Dev server tu dong cap nhat khi sua code. Nhan `Ctrl + C` de tat.
-
-### Cach 2: Build va chay production
+### Build production
 
 ```bash
 npm run build
+```
+
+Tạo folder `dist/` chứa toàn bộ file tĩnh.
+
+### Preview bản build
+
+```bash
 npm run preview
 ```
 
-- `npm run build`: Tao folder `dist/` chua toan bo file tinh
-- `npm run preview`: Mo server local de xem ban build (http://localhost:4173)
+Xem bản build tại `http://localhost:4173/`
 
-### Cach 3: Mo truc tiep file index.html
+### Lint code
 
-Sau khi build (`npm run build`), vao folder `dist/`, mo `index.html` bang trinh duyet.
-
----
-
-## Huong dung
-
-### 1. Trang chu (Hero)
-- Hinh anh mo dau fullscreen
-- Bam **"Bat dau hanh trinh"** de vao khu trien lam
-- Bam **"Dong thoi gian"** de xem timeline
-
-### 2. Khu trien lam (10 phong)
-- Gallery card hien thi tat ca phong
-- Bam **"Kham pha"** vao tung phong
-- Trong phong: doc noi dung, xem cau trich dan
-- Bam **"Phong truoc"** / **"Phong tiep"** de chuyen
-- Phong cuoi cung: nut **"Lam bai Quiz"**
-
-### 3. Dong thoi gian
-- 10 moc su kien tu 1911 den 2025
-- **Click** vao tung moc de mo/ong chi tiet
-- Ban desktop: hien thi 2 cot xen ke
-
-### 4. Ban do tuong tac
-- SVG ban do Viet Nam
-- **Hover** vao cac dia danh: Ha Noi, TP.HCM, Da Nang, Nghe An, Cao Bang
-- Xem thong tin popup khi hover
-
-### 5. Dashboard thanh tuu
-- 6 chi so: GDP, ti le biet chu, ky su CNTT, cong bo quoc te, nguoi dung Internet, khach quoc te
-- 4 achievement: Di san van hoa, Truong dai hoc, Benh vien, Khu cong nghiep
-
-### 6. Quiz
-- 30 cau hoi ve tu tuong Ho Chi Minh
-- 3 cap do: Co ban (xanh), Trung binh (cam), Nang cao (do)
-- Chon dap an, tu dong chuyen cau tiep
-- Sau cau cuoi: bam **"Xem ket qua"**
-- Ket qua: diem so, phan tram, xep loai A-D
-- Bam **"Nhan chung nhan"** de tao certificate
-
-### 7. Chung nhan hoan thanh
-- Nhap **Ho ten** vao o input
-- Bam **"Tao chung nhan"**
-- Xem certificate duoc tao
-- Bam **"Download PNG"** hoac **"Download PDF"** de tai ve
-
-### 8. Navigation
-- **Navbar:** Fixed tren cung: Trang chu, Phong trien lam, Dong thoi gian, Ban do, Thanh tuu, Quiz
-- **Mobile:** Bam icon hamburger (3 gach) de mo menu
-
----
-
-## Cau truc du an
-
-```
-D:\HCM\
-+-- index.html              # File HTML chinh
-+-- package.json            # Config du an, dependencies
-+-- package-lock.json       # Khoa phien ban thu vien
-+-- vite.config.js          # Config Vite
-+-- .gitignore             # File can bo qua khi push git
-+-- README.md              # File huong dan
-+-- public\
-|   +-- favicon.svg
-+-- src\
-|   +-- main.jsx            # Diem vao React app
-|   +-- App.jsx             # Router + Layout
-|   +-- index.css           # Design system (CSS variables)
-|   +-- App.css             # Component styles
-|   +-- data\
-|   |   +-- roomContent.js      # 10 phong trien lam
-|   |   +-- quizData.js         # 30 cau hoi
-|   |   +-- timelineData.js     # 10 moc lich su
-|   |   +-- dashboardData.js    # So lieu thanh tuu
-|   +-- components\
-|       +-- Navbar.jsx          # Thanh dieu huong
-|       +-- Hero.jsx            # Trang chu fullscreen
-|       +-- RoomList.jsx        # Danh sach phong
-|       +-- RoomCard.jsx        # Card tung phong
-|       +-- RoomDetail.jsx      # Chi tiet phong
-|       +-- Timeline.jsx        # Dong thoi gian
-|       +-- VietnamMap.jsx      # Ban do SVG
-|       +-- Dashboard.jsx       # Thong ke thanh tuu
-|       +-- Quiz.jsx            # Bai kiem tra
-|       +-- Certificate.jsx     # Chung nhan hoan thanh
-|       +-- Footer.jsx          # Chan trang
-+-- dist\                  # San pham build (tu sinh)
-    +-- index.html
-    +-- assets\
-        +-- index-xxx.css
-        +-- index-xxx.js
+```bash
+npm run lint
 ```
 
 ---
 
-## Huong dan deploy mien phi
+## Hướng dẫn sử dụng
 
-### Cach 1: GitHub Pages (de nhat)
+### Trang chủ (Hero)
+- Hình ảnh mở đầu fullscreen
+- Bấm **"Bắt đầu hành trình"** để vào khu triển lãm
+- Bấm **"Dòng thời gian"** để xem timeline
 
-**Buoc 1:** Tao tai khoan GitHub (https://github.com/signup)
+### Khu triển lãm (10 phòng)
+- Gallery card hiển thị tất cả phòng
+- Bấm **"Khám phá"** vào từng phòng
+- Trong phòng: đọc nội dung, xem câu trích dẫn
+- Bấm **"Phòng trước"** / **"Phòng tiếp"** để chuyển
+- Phòng cuối cùng: nút **"Làm bài Quiz"**
 
-**Buoc 2:** Tao repository moi (New repository)
-- Dat ten: `digital-museum-hcm`
-- De Public
-- Khong chon README hay .gitignore
+### Dòng thời gian
+- 10 mốc sự kiện từ 1911 đến 2025
+- **Click** vào từng mốc để mở/đóng chi tiết
 
-**Buoc 3:** Day code len GitHub
+### Bản đồ tương tác
+- SVG bản đồ Việt Nam
+- **Hover** vào các địa danh để xem thông tin popup
 
-```bash
-git init
-git add .
-git commit -m "First commit"
-git branch -M main
-git remote add origin https://github.com/<username>/digital-museum-hcm.git
-git push -u origin main
-```
+### Dashboard thành tựu
+- 6 chỉ số: GDP, tỉ lệ biết chữ, kỹ sư CNTT, công bố quốc tế, người dùng Internet, khách quốc tế
+- 4 achievement: Di sản văn hóa, Trường đại học, Bệnh viện, Khu công nghiệp
 
-Thay `<username>` bang ten GitHub cua ban.
+### Quiz
+- 30 câu hỏi về tư tưởng Hồ Chí Minh
+- 3 cấp độ: Cơ bản (xanh), Trung bình (cam), Nâng cao (đỏ)
+- Sau câu cuối: bấm **"Xem kết quả"**
+- Kết quả: điểm số, phần trăm, xếp loại A–D
 
-**Buoc 4:** Build san pham
+### Chứng nhận hoàn thành
+- Nhập **Họ tên** vào ô input
+- Bấm **"Tạo chứng nhận"**
+- Bấm **"Download PNG"** hoặc **"Download PDF"** để tải về
 
-```bash
-npm run build
-```
+---
 
-**Buoc 5:** Day folder `dist/` len GitHub Pages
+## Deploy
 
-```bash
-npx gh-pages -d dist
-```
-
-**Buoc 6:** Truy cap
-Sau khi chay xong, vao:
-```
-https://<username>.github.io/digital-museum-hcm/
-```
-
-### Cach 2: Vercel (nhanh nhat)
-
-**Buoc 1:** Tao tai khoan Vercel (https://vercel.com/signup)
-
-**Buoc 2:** Cai dat Vercel CLI
+### Vercel (đang dùng — nhanh nhất)
 
 ```bash
 npm install -g vercel
-```
-
-**Buoc 3:** Deploy
-
-```bash
 vercel
 ```
 
-- Lan dau se hoi dang nhap (login bang GitHub)
-- Chon `Y` cho "Set up and deploy"
-- Vercel tu dong nhan dien day la Vite project
-- Sau vai giay, co link: `https://digital-museum-hcm.vercel.app`
+Tự động nhận diện Vite project, deploy xong có link ngay.
 
-### Cach 3: Netlify (keo tha)
-
-**Buoc 1:** Tao tai khoan Netlify (https://app.netlify.com/signup)
-
-**Buoc 2:** Build san pham
+### GitHub Pages
 
 ```bash
 npm run build
+npx gh-pages -d dist
 ```
 
-**Buoc 3:** Keo tha folder `dist/` vao Netlify
-- Mo https://app.netlify.com/drop
-- Keo folder `dist/` tu may tinh vao trinh duyet
-- Xong! Ban co link: `https://random-name.netlify.app`
+Truy cập: `https://<username>.github.io/<repo-name>/`
+
+### Netlify (kéo thả)
+
+1. Build: `npm run build`
+2. Kéo folder `dist/` vào [netlify.com/drop](https://app.netlify.com/drop)
 
 ---
 
-## Tech stack
+## Scripts Python
 
-| Cong nghe | Phien ban | Muc dich |
-|-----------|-----------|----------|
-| React | 19 | Framework chinh |
-| Vite | 8.0 | Build tool, dev server |
-| React Router | 7 | Dieu huong (HashRouter) |
-| Framer Motion | 12 | Animation, page transition |
-| html2canvas | 1.4 | Chup certificate sang PNG |
-| jsPDF | 3.0 | Tao file PDF certificate |
-| CSS Variables | - | Design system, theme |
+### `generate_qr.py` — Tạo QR Code
+
+Tạo QR code trỏ tới trang web live demo.
+
+**Cài thư viện:**
+```bash
+pip install qrcode[pil]
+```
+
+**Chạy:**
+```bash
+python generate_qr.py
+```
+
+Output: `qr_code.png` trong cùng thư mục.
+
+### `gen_data.py` — Tạo dữ liệu
+
+Script xử lý dữ liệu từ folder `Data/`.
+
+### `build_part1.py` — Build phần 1
+
+Script hỗ trợ build nội dung.
 
 ---
 
-## Ghi chu
+## Ghi chú kỹ thuật
 
-### Vi sao dung HashRouter?
-Dung `HashRouter` (duong dan co `/#/`) thay vi `BrowserRouter` de deploy len GitHub Pages
-va Netlify khong bi loi 404 khi load trang.
+### Tại sao dùng HashRouter?
+Dùng `HashRouter` (đường dẫn có `/#/`) thay vì `BrowserRouter` để deploy lên GitHub Pages và Netlify không bị lỗi 404 khi load trang.
 
-### Them noi dung phong
-Mo file `src/data/roomContent.js`, moi phong la mot object:
-- `id`: so thu tu (0-9)
-- `title`: ten phong
-- `subtitle`: mo ta phu
-- `desc`: noi dung chinh
-- `quote`: cau trich dan (co the de trong)
-- `year`: moc thoi gian
-
-### Them cau hoi quiz
-Mo file `src/data/quizData.js`, them object:
+### Thêm nội dung phòng
+Mở file `src/data/roomContent.js`, mỗi phòng là một object:
 ```js
-{id:31, level:"Co ban", question:"Cau hoi moi?", options:["A","B","C","D"], answer:0}
+{
+  id: 0,          // Số thứ tự (0–9)
+  title: "",      // Tên phòng
+  subtitle: "",   // Mô tả phụ
+  desc: "",       // Nội dung chính
+  quote: "",      // Câu trích dẫn (có thể để trống)
+  year: ""        // Mốc thời gian
+}
 ```
-- `level`: "Co ban" | "Trung binh" | "Nang cao"
-- `answer`: chi so cua dap an dung (0=A, 1=B, 2=C, 3=D)
 
-### Loi thuong gap va cach khac phuc
+### Thêm câu hỏi quiz
+Mở file `src/data/quizData.js`, thêm object:
+```js
+{
+  id: 31,
+  level: "Cơ bản",   // "Cơ bản" | "Trung bình" | "Nâng cao"
+  question: "Câu hỏi mới?",
+  options: ["A", "B", "C", "D"],
+  answer: 0           // Index của đáp án đúng (0=A, 1=B, 2=C, 3=D)
+}
+```
 
-| Loi | Nguyen nhan | Cach khac phuc |
+### Lỗi thường gặp
+
+| Lỗi | Nguyên nhân | Cách khắc phục |
 |-----|-------------|----------------|
-| `npm install` bi loi | Mat mang, Node cu | Kiem tra mang, cap nhat Node.js |
-| Trang web trang | Chua chay dev server | Chay `npm run dev` |
-| Certificate khong tai | Lien quan CORS | Chay bang `npm run dev` |
-| GitHub Pages trang trang | Quen chay deploy | Chay `npx gh-pages -d dist` |
-| 404 khi deploy | Sai route | Dung HashRouter (da cau hinh san) |
+| `npm install` bị lỗi | Mạng yếu, Node cũ | Kiểm tra mạng, cập nhật Node.js |
+| Trang web trắng | Chưa chạy dev server | Chạy `npm run dev` |
+| Certificate không tải | Liên quan CORS | Chạy bằng `npm run dev` |
+| GitHub Pages trắng | Quên chạy deploy | Chạy `npx gh-pages -d dist` |
+| 404 khi deploy | Sai route config | Dùng HashRouter (đã cấu hình sẵn) |
 
 ---
 
-*Du an duoc thuc hien bang AI Coding (Codex GPT-5)*
-
-**Trang thai:** Hoan thanh
+**Trạng thái:** Hoàn thành ✓
+**Deployed tại:** [https://hcm-blue-psi.vercel.app/#/](https://hcm-blue-psi.vercel.app/#/)

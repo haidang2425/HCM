@@ -1,5 +1,20 @@
-# Logs
-logs
+# ===== Dependencies =====
+node_modules/
+.pnp
+.pnp.js
+
+# ===== Build output =====
+dist/
+dist-ssr/
+build/
+out/
+
+# ===== Vite cache =====
+.vite/
+vite.config.js.timestamp-*
+
+# ===== Logs =====
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,18 +22,69 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# ===== Environment variables =====
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 *.local
 
-# Editor directories and files
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+env/
+ENV/
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+*.egg-info/
+dist/
+*.egg
+
+# ===== Generated output files =====
+qr_code.png
+qr_code.jpg
+*.qr.*
+
+# ===== Editor =====
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+!.vscode/settings.json
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+*.swp
+*.bak
+
+# ===== OS =====
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ===== Testing =====
+coverage/
+.nyc_output/
+
+# ===== Misc =====
+*.pem
+*.key
+*.cert
+.cache/
+tmp/
+temp/
