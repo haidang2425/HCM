@@ -14,19 +14,7 @@ export default function ReviewWrong() {
     setWrongQuestions(saved);
   }, []);
 
-  const removeQuestion = () => {
-    const newSaved = [...wrongQuestions];
-    newSaved.splice(current, 1);
-    setWrongQuestions(newSaved);
-    localStorage.setItem('hcm_wrong_questions', JSON.stringify(newSaved));
-    
-    // Move to next or previous
-    setShowFeedback(false);
-    setSelected(null);
-    if (current >= newSaved.length && current > 0) {
-      setCurrent(current - 1);
-    }
-  };
+
 
   if (wrongQuestions.length === 0) {
     return (
@@ -58,10 +46,21 @@ export default function ReviewWrong() {
   const handleNext = () => {
     setShowFeedback(false);
     setSelected(null);
-    if (current < wrongQuestions.length - 1) {
-      setCurrent(current + 1);
+    
+    if (selected === correctIdx) {
+      const newSaved = [...wrongQuestions];
+      newSaved.splice(current, 1);
+      setWrongQuestions(newSaved);
+      localStorage.setItem('hcm_wrong_questions', JSON.stringify(newSaved));
+      if (current >= newSaved.length && current > 0) {
+        setCurrent(current - 1);
+      }
     } else {
-      setCurrent(0);
+      if (current < wrongQuestions.length - 1) {
+        setCurrent(current + 1);
+      } else {
+        setCurrent(0);
+      }
     }
   };
 
@@ -122,9 +121,6 @@ export default function ReviewWrong() {
                   </p>
                   
                   <div style={{display: 'flex', gap: '10px', marginTop: '20px'}}>
-                    <button className="btn btn-outline" onClick={removeQuestion}>
-                      🗑️ Đã thuộc, xóa câu này
-                    </button>
                     <button
                       className="btn btn-primary"
                       onClick={handleNext}

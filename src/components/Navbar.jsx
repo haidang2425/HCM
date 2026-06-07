@@ -39,6 +39,7 @@ export default function Navbar() {
           <Link to="/map" className={isActive('/map')} onClick={() => setMenuOpen(false)}>Bản đồ</Link>
           <Link to="/dashboard" className={isActive('/dashboard')} onClick={() => setMenuOpen(false)}>Thành tựu</Link>
           <Link to="/quizbank" className={isActive('/quizbank')} onClick={() => setMenuOpen(false)}>Ngân hàng đề</Link>
+          <Link to="/review" className={isActive('/review')} onClick={() => setMenuOpen(false)}>Ôn câu sai</Link>
           
           <div className="nav-actions" style={{display: 'flex', alignItems: 'center', gap: '15px'}}>
             <button className="theme-toggle desktop-only" onClick={() => setSearchOpen(true)} title="Tìm kiếm" style={{fontSize: '1.2rem', cursor: 'pointer', background: 'none', border: 'none'}}>

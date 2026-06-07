@@ -12,8 +12,6 @@ export default function QuizBank() {
   const [countFilter, setCountFilter] = useState(30);
 
   const [current, setCurrent] = useState(0);
-  const [selected, setSelected] = useState(null);
-  const [showFeedback, setShowFeedback] = useState(false);
   const [answers, setAnswers] = useState({});
   const [showResult, setShowResult] = useState(false);
   
@@ -37,15 +35,13 @@ export default function QuizBank() {
     const selected = countFilter === 'all' ? shuffled : shuffled.slice(0, countFilter);
     
     if (selected.length === 0) {
-      alert("Không tìm thấy câu hỏi phù hợp với bộ lọc!");
+      alert('Không tìm thấy câu hỏi phù hợp với bộ lọc!');
       return;
     }
     
     setQuizData(selected);
     setCurrent(0);
     setAnswers({});
-    setSelected(null);
-    setShowFeedback(false);
     setShowResult(false);
     setSetupMode(false);
   };
@@ -59,22 +55,29 @@ export default function QuizBank() {
   };
 
   const handleAnswer = (idx, isCorrect) => {
-    if (showFeedback) return;
-    setSelected(idx);
+    if (answers[current] !== undefined) return;
     setAnswers(prev => ({ ...prev, [current]: idx }));
-    setShowFeedback(true);
-    
     if (!isCorrect) {
       saveWrongQuestion(quizData[current]);
     }
   };
 
   const handleNext = () => {
-    setShowFeedback(false);
-    setSelected(null);
     if (current < quizData.length - 1) {
       setCurrent(current + 1);
     } else {
+      setShowResult(true);
+    }
+  };
+
+  const handlePrev = () => {
+    if (current > 0) {
+      setCurrent(current - 1);
+    }
+  };
+
+  const handleQuit = () => {
+    if (window.confirm('Bạn có chắc chắn muốn kết thúc sớm bài làm không?')) {
       setShowResult(true);
     }
   };
@@ -106,8 +109,6 @@ export default function QuizBank() {
                 <option value="tong_hop">Tổng hợp</option>
               </select>
             </div>
-            
-
             
             <div>
               <label style={{display: 'block', fontWeight: 'bold', marginBottom: '5px'}}>Số lượng câu hỏi</label>
@@ -141,15 +142,18 @@ export default function QuizBank() {
   const q = quizData[current];
   const levelColors = { 'easy': '#4CAF50', 'medium': '#FF9800', 'hard': '#C41E3A' };
   
-  // Find index of correct option based on option.key and q.answer_key
   const correctIdx = q.options.findIndex(opt => opt.key === q.answer_key);
+  const selected = answers[current];
+  const isAnswered = selected !== undefined;
   const isCorrect = selected === correctIdx;
 
   const score = quizData.reduce((acc, q, i) => {
+    if (answers[i] === undefined) return acc;
     const cIdx = q.options.findIndex(opt => opt.key === q.answer_key);
     return acc + (answers[i] === cIdx ? 1 : 0);
   }, 0);
   
+  const answeredCount = Object.keys(answers).length;
   const pct = Math.round((score / quizData.length) * 100);
 
   if (showResult) {
@@ -166,7 +170,8 @@ export default function QuizBank() {
             </div>
             <div className="quiz-result-breakdown">
               <span className="breakdown-correct">✅ Đúng: {score}</span>
-              <span className="breakdown-incorrect">❌ Sai: {quizData.length - score}</span>
+              <span className="breakdown-incorrect">❌ Sai: {answeredCount - score}</span>
+              <span className="breakdown-skipped">⏭️ Bỏ qua: {quizData.length - answeredCount}</span>
             </div>
             <div className="quiz-actions" style={{marginTop: '20px'}}>
               <button className="btn btn-outline" onClick={() => setSetupMode(true)}>Làm đề khác</button>
@@ -184,7 +189,7 @@ export default function QuizBank() {
   }
 
   const getOptionClass = (idx) => {
-    if (!showFeedback) return selected === idx ? 'selected' : '';
+    if (!isAnswered) return '';
     if (idx === correctIdx) return 'correct';
     if (idx === selected && idx !== correctIdx) return 'incorrect';
     return 'dimmed';
@@ -193,11 +198,17 @@ export default function QuizBank() {
   return (
     <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="section section-cream">
       <div className="container">
-        <div className="quiz-header">
-          <div className="quiz-progress">
-            <div className="quiz-progress-bar" style={{ width: ((current + 1) / quizData.length) * 100 + '%' }} />
+        <div className="quiz-header" style={{display: 'flex', flexDirection: 'column', gap: '15px'}}>
+          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            <h2 style={{margin: 0, fontSize: '1.5rem', color: 'var(--ink)'}}>Ngân Hàng Trắc Nghiệm</h2>
+            <button className="btn btn-outline" onClick={handleQuit} style={{padding: '5px 15px', fontSize: '0.9rem'}}>Kết thúc sớm</button>
           </div>
-          <span className="quiz-count">{current + 1}/{quizData.length}</span>
+          <div style={{display: 'flex', alignItems: 'center', gap: '15px'}}>
+            <div className="quiz-progress" style={{flexGrow: 1}}>
+              <div className="quiz-progress-bar" style={{ width: ((current + 1) / quizData.length) * 100 + '%' }} />
+            </div>
+            <span className="quiz-count">{current + 1}/{quizData.length}</span>
+          </div>
         </div>
 
         <AnimatePresence mode="wait">
@@ -226,19 +237,19 @@ export default function QuizBank() {
                   key={idx}
                   className={'quiz-option ' + getOptionClass(idx)}
                   onClick={() => handleAnswer(idx, idx === correctIdx)}
-                  whileTap={!showFeedback ? { scale: 0.98 } : {}}
-                  disabled={showFeedback}
+                  whileTap={!isAnswered ? { scale: 0.98 } : {}}
+                  disabled={isAnswered}
                 >
                   <span className="quiz-opt-letter">{opt.key}</span>
                   <span>{opt.text}</span>
-                  {showFeedback && idx === correctIdx && <span className="quiz-opt-check">✓</span>}
-                  {showFeedback && idx === selected && idx !== correctIdx && <span className="quiz-opt-cross">✗</span>}
+                  {isAnswered && idx === correctIdx && <span className="quiz-opt-check">✓</span>}
+                  {isAnswered && idx === selected && idx !== correctIdx && <span className="quiz-opt-cross">✗</span>}
                 </motion.button>
               ))}
             </div>
 
             <AnimatePresence>
-              {showFeedback && (
+              {isAnswered && (
                 <motion.div
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -258,19 +269,27 @@ export default function QuizBank() {
                   <p className="quiz-feedback-explanation" style={{marginTop: '15px', fontStyle: 'italic'}}>
                     {q.explanation_short || q.explanation}
                   </p>
-                  
-                  <div style={{display: 'flex', gap: '10px', marginTop: '20px'}}>
-                    <button
-                      className={'btn ' + (current === quizData.length - 1 ? 'btn-gold' : 'btn-primary')}
-                      onClick={handleNext}
-                      style={{flexGrow: 1, justifyContent: 'center'}}
-                    >
-                      {current === quizData.length - 1 ? '🏁 Xem kết quả' : 'Câu tiếp →'}
-                    </button>
-                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
+
+            <div style={{display: 'flex', gap: '15px', marginTop: '30px', borderTop: '1px solid var(--slate-light)', paddingTop: '20px'}}>
+              <button
+                className="btn btn-outline"
+                onClick={handlePrev}
+                disabled={current === 0}
+                style={{flex: 1}}
+              >
+                ← Câu trước
+              </button>
+              <button
+                className={'btn ' + (current === quizData.length - 1 ? 'btn-gold' : 'btn-primary')}
+                onClick={handleNext}
+                style={{flex: 1}}
+              >
+                {current === quizData.length - 1 ? '🏁 Nộp bài' : 'Câu tiếp →'}
+              </button>
+            </div>
           </motion.div>
         </AnimatePresence>
       </div>
