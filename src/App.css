@@ -398,7 +398,7 @@ g:hover .map-city-dot { r: 5; }
 .footer-grid { display: grid; grid-template-columns: 2fr 1fr 2fr; gap: var(--space-8); margin-bottom: var(--space-8); }
 .footer-about h3 { font-family: var(--font-display); color: var(--gold-primary); margin-bottom: var(--space-4); }
 .footer-about p { font-size: var(--text-sm); margin-bottom: var(--space-2); }
-.footer-links h4 { color: var(--white); margin-bottom: var(--space-4); font-size: var(--text-base); }
+.footer-links h4 { font-family: var(--font-display); color: var(--gold-primary); margin-bottom: var(--space-4); font-size: var(--text-base); }
 .footer-links a { display: block; color: rgba(255,255,255,0.5); font-size: var(--text-sm); margin-bottom: var(--space-2); }
 .footer-links a:hover { color: var(--gold-primary); }
 .footer-quote blockquote { font-family: var(--font-display); font-style: italic; color: var(--gold-light); font-size: var(--text-lg); margin-bottom: var(--space-2); }
