@@ -1,0 +1,76 @@
+{
+  "metadata": {
+    "title": "HCM static web media/link manifest",
+    "purpose": "Đưa vào folder code để Claude Code tạo section hình ảnh, bài viết tham khảo và nút đọc thêm theo từng chương.",
+    "usage_note": "Nên dùng ảnh/link từ nguồn chính thống, có ghi nguồn dưới ảnh. Nếu cần ảnh offline, tải thủ công vào public/media rồi thay image_url bằng local_path.",
+    "license_note": "Kiểm tra quyền sử dụng trước khi công khai/sản phẩm nộp môn học. Với bài học nội bộ nên ghi nguồn đầy đủ."
+  },
+  "chapters": [
+    {
+      "chapter_id": "chuong_1_nhap_mon",
+      "title": "Khái niệm, đối tượng, phương pháp nghiên cứu và ý nghĩa học tập",
+      "suggested_visuals": [
+        {"type": "cover_or_banner", "keyword": "Chủ tịch Hồ Chí Minh, giáo trình, tư tưởng Hồ Chí Minh", "source_hint": "hochiminh.vn hoặc Bảo tàng Hồ Chí Minh", "caption": "Tư tưởng Hồ Chí Minh là nền tảng tư tưởng, kim chỉ nam cùng với chủ nghĩa Mác - Lênin."}
+      ],
+      "links": [
+        {"title": "Trang tin Hồ Chí Minh", "url": "https://hochiminh.vn/", "note": "Dùng làm nguồn đọc thêm tổng quan và tư liệu chính thống."},
+        {"title": "Trang tin Hồ Chí Minh - Đảng Cộng sản Việt Nam", "url": "https://dangcongsan.vn/tu-tuong-van-hoa/ho-chi-minh", "note": "Nguồn bài viết chính thống về học tập, vận dụng tư tưởng Hồ Chí Minh."}
+      ]
+    },
+    {
+      "chapter_id": "chuong_2_co_so_hinh_thanh",
+      "title": "Cơ sở, quá trình hình thành và phát triển tư tưởng Hồ Chí Minh",
+      "suggested_visuals": [
+        {"type": "timeline", "keyword": "1890 1911 1920 1930 1941 Hồ Chí Minh timeline", "caption": "Dòng thời gian hình thành và phát triển tư tưởng Hồ Chí Minh."},
+        {"type": "map", "keyword": "hành trình Nguyễn Tất Thành tìm đường cứu nước", "caption": "Hành trình tìm đường cứu nước và tiếp cận chủ nghĩa Mác - Lênin."}
+      ],
+      "links": [
+        {"title": "Bảo tàng Hồ Chí Minh", "url": "https://baotanghochiminh.vn/", "note": "Nguồn tư liệu hình ảnh, hiện vật, câu chuyện về cuộc đời và sự nghiệp Hồ Chí Minh."},
+        {"title": "Chủ tịch Hồ Chí Minh - cuộc đời và sự nghiệp", "url": "https://hochiminh.vn/", "note": "Dùng để lấy bài đọc thêm về các mốc hoạt động cách mạng."}
+      ]
+    },
+    {
+      "chapter_id": "chuong_3_doc_lap_va_cnxh",
+      "title": "Độc lập dân tộc và chủ nghĩa xã hội",
+      "suggested_visuals": [
+        {"type": "concept_diagram", "keyword": "Độc lập dân tộc gắn liền với chủ nghĩa xã hội Hồ Chí Minh", "caption": "Công thức trọng tâm: độc lập dân tộc là tiền đề, CNXH là điều kiện bảo đảm độc lập vững chắc."}
+      ],
+      "links": [
+        {"title": "Tư tưởng Hồ Chí Minh về độc lập dân tộc gắn liền với chủ nghĩa xã hội", "url": "https://hochiminh.vn/", "note": "Tìm bài đọc thêm bằng từ khóa tiêu đề trên trong trang."}
+      ]
+    },
+    {
+      "chapter_id": "chuong_4_dang_va_nha_nuoc",
+      "title": "Đảng Cộng sản Việt Nam và Nhà nước của dân, do dân, vì dân",
+      "suggested_visuals": [
+        {"type": "infographic", "keyword": "Nhà nước của dân do dân vì dân Hồ Chí Minh", "caption": "Nhà nước của dân, do dân, vì dân; quản lý bằng pháp luật kết hợp giáo dục đạo đức."},
+        {"type": "quote_card", "keyword": "Đảng có vững cách mệnh mới thành công Hồ Chí Minh", "caption": "Đảng là nhân tố lãnh đạo quyết định thắng lợi của cách mạng."}
+      ],
+      "links": [
+        {"title": "Cổng thông tin điện tử Đảng Cộng sản Việt Nam", "url": "https://dangcongsan.vn/", "note": "Nguồn chính thống cho bài viết về xây dựng Đảng và Nhà nước."}
+      ]
+    },
+    {
+      "chapter_id": "chuong_5_doan_ket",
+      "title": "Đại đoàn kết toàn dân tộc và đoàn kết quốc tế",
+      "suggested_visuals": [
+        {"type": "mindmap", "keyword": "Đại đoàn kết dân tộc Hồ Chí Minh", "caption": "Đại đoàn kết là vấn đề chiến lược, quyết định thành công của cách mạng."}
+      ],
+      "links": [
+        {"title": "Nhân Dân: Vận dụng tư tưởng Hồ Chí Minh về đại đoàn kết", "url": "https://special.nhandan.vn/vandungtutuongHCM-ve-daidoanket/index.html", "note": "Bài chuyên đề có thể dùng cho phần đọc thêm hoặc case study."},
+        {"title": "Tạp chí Cộng sản: Giá trị tư tưởng Hồ Chí Minh về đại đoàn kết dân tộc", "url": "https://www.tapchicongsan.org.vn/web/guest/chinh-tri-xay-dung-dang/-/2018/827275/gia-tri-tu-tuong-ho-chi-minh-ve-dai-doan-ket-dan-toc-trong-su-nghiep-cung-co%2C-tang-cuong-khoi-dai-doan-ket-toan-dan-toc-o-viet-nam-hien-nay.aspx", "note": "Bài phân tích chuyên sâu về giá trị hiện nay của tư tưởng đại đoàn kết."}
+      ]
+    },
+    {
+      "chapter_id": "chuong_6_van_hoa_dao_duc_con_nguoi",
+      "title": "Văn hóa, đạo đức, con người",
+      "suggested_visuals": [
+        {"type": "quote_card", "keyword": "Cần kiệm liêm chính chí công vô tư Hồ Chí Minh", "caption": "Các chuẩn mực đạo đức cách mạng: trung với nước, hiếu với dân; cần, kiệm, liêm, chính, chí công vô tư."},
+        {"type": "concept_diagram", "keyword": "trồng người Hồ Chí Minh", "caption": "Con người là vốn quý nhất, nhân tố quyết định thành công của cách mạng."}
+      ],
+      "links": [
+        {"title": "Tư tưởng Hồ Chí Minh về văn hóa và xây dựng con người mới", "url": "https://hochiminh.vn/tu-tuong-dao-duc-ho-chi-minh/noi-dung-tu-tuong-dao-duc/tu-tuong-ho-chi-minh-ve-van-hoa-va-xay-dung-con-nguoi-moi-32", "note": "Bài đọc thêm phù hợp trực tiếp với chương 6."}
+      ]
+    }
+  ]
+}
