@@ -40,7 +40,7 @@ export default function VietnamMap() {
                       <animate attributeName="r" values="12;35" dur="1.5s" repeatCount="indefinite" />
                       <animate attributeName="opacity" values="0.8;0" dur="1.5s" repeatCount="indefinite" />
                     </circle>
-                    <text x={c.x + 25} y={c.y + 8} fontSize="28" fill="var(--ink)" fontWeight="bold" style={{pointerEvents: 'none', filter: 'drop-shadow(0 2px 2px rgba(255,255,255,0.8))'}}>{c.name}</text>
+                    <text x={c.x + 25} y={c.y + 8} fontSize="28" fill="#2C3E50" fontWeight="bold" style={{pointerEvents: 'none', filter: 'drop-shadow(0 2px 2px rgba(255,255,255,0.8))'}}>{c.name}</text>
                   </g>
                 ))}
               </svg>

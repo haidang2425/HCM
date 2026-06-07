@@ -18,7 +18,7 @@
 }
 .nav-links { display: flex; align-items: center; gap: var(--space-6); }
 .nav-links a {
-  color: var(--off-white); text-decoration: none; font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.85); text-decoration: none; font-size: var(--text-sm);
   font-weight: 500; transition: color var(--transition-fast); position: relative; padding: 4px 0;
 }
 .nav-links a:hover, .nav-links a.nav-active { color: var(--gold-primary); }
@@ -27,7 +27,7 @@
   height: 2px; background: var(--gold-primary); border-radius: 1px;
 }
 .nav-quiz-btn { padding: 8px 20px !important; font-size: var(--text-sm) !important; }
-.menu-toggle { display: none; color: var(--white); font-size: 1.5rem; background: none; border: none; cursor: pointer; }
+.menu-toggle { display: none; color: #FFFFFF; font-size: 1.5rem; background: none; border: none; cursor: pointer; }
 .mobile-only { display: none !important; }
 
 @media (max-width: 768px) {
@@ -469,3 +469,16 @@ g:hover .map-city-dot { r: 5; }
 @media (max-width: 768px) {
   .desktop-only { display: none !important; }
 }
+/* --- DARK MODE FIXES FOR INVERTED BACKGROUNDS --- */
+[data-theme="dark"] .section-dark { background: #0A0A0A; color: #E0E0E0; }
+[data-theme="dark"] .section-cream .section-subtitle { color: #A0A0A0; }
+[data-theme="dark"] .timeline-content-inner p { color: rgba(255,255,255,0.9); }
+[data-theme="dark"] .footer { background: #0A0A0A; }
+[data-theme="dark"] .theory-sidebar, [data-theme="dark"] .theory-chapter { background: #1E1E1E; }
+[data-theme="dark"] .theory-sidebar li:hover { background: rgba(255,255,255,0.05); }
+[data-theme="dark"] .lesson-sidebar { border-color: rgba(255,255,255,0.1); }
+[data-theme="dark"] .lesson-sidebar li.active { background: rgba(255,255,255,0.05); color: var(--gold-primary); }
+[data-theme="dark"] .lesson-summary { background: rgba(255,255,255,0.05); }
+[data-theme="dark"] .detail-section h4 { color: var(--gold-light); }
+[data-theme="dark"] .dashboard-label { color: #FFFFFF; }
+[data-theme="dark"] .dashboard-card { background: rgba(255,255,255,0.05); }
