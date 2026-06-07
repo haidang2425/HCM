@@ -128,9 +128,9 @@ export default function Quiz() {
     <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="section section-cream">
       <div className="container">
         <div className="quiz-header" style={{display: 'flex', flexDirection: 'column', gap: '15px'}}>
-          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-            <h2 style={{margin: 0, fontSize: '1.5rem', color: 'var(--ink)'}}>Quiz Mini</h2>
-            <button className="btn btn-outline" onClick={handleQuit} style={{padding: '5px 15px', fontSize: '0.9rem'}}>Kết thúc sớm</button>
+          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '15px', flexWrap: 'wrap'}}>
+            <h2 style={{margin: 0, fontSize: 'clamp(1.2rem, 4vw, 1.5rem)', color: 'var(--ink)'}}>Quiz Mini</h2>
+            <button className="btn btn-outline" onClick={handleQuit} style={{padding: '5px 15px', fontSize: '0.9rem', flexShrink: 0}}>Kết thúc sớm</button>
           </div>
           <div style={{display: 'flex', alignItems: 'center', gap: '15px'}}>
             <div className="quiz-progress" style={{flexGrow: 1}}>
