@@ -9,6 +9,26 @@ export default function Certificate() {
   const [generated, setGenerated] = useState(false);
   const pct = Math.round((parseInt(score)/parseInt(total))*100);
   const today = new Date().toLocaleDateString('vi-VN');
+  
+  if (pct < 50) {
+    return (
+      <motion.section initial={{opacity:0}} animate={{opacity:1}} className="section section-cream">
+        <div className="container">
+          <div className="cert-form text-center" style={{maxWidth: '600px', margin: '0 auto', background: 'var(--white)', padding: '40px', borderRadius: 'var(--border-radius-lg)', boxShadow: 'var(--shadow-sm)'}}>
+            <h2 style={{color: 'var(--red-dark)', marginBottom: '20px'}}>Chưa đủ điều kiện</h2>
+            <div style={{fontSize: '4rem', marginBottom: '20px'}}>😔</div>
+            <p style={{marginBottom: '20px', color: 'var(--slate)'}}>Bạn cần đạt tối thiểu <strong>50%</strong> số điểm để nhận chứng nhận.</p>
+            <div className="cert-score-display" style={{borderColor: '#f44336', display: 'inline-block', padding: '10px 20px', borderRadius: '30px', border: '2px solid #f44336', marginBottom: '30px'}}>
+              <span style={{color: '#f44336', fontWeight: 'bold'}}>Điểm của bạn: {score}/{total} ({pct}%)</span>
+            </div>
+            <br />
+            <button className="btn btn-primary" onClick={() => window.location.hash = '#/quizbank'}>Luyện tập thêm</button>
+          </div>
+        </div>
+      </motion.section>
+    );
+  }
+
   const handleGenerate = () => {
     if (!name.trim()) return alert('Vui lòng nhập họ tên!');
     setGenerated(true);

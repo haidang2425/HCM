@@ -89,3 +89,21 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .text-red { color: var(--red-primary); }
 .mt-4 { margin-top: var(--space-4); }
 .mt-8 { margin-top: var(--space-8); }
+
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --cream: #121212;
+  --cream-dark: #1E1E1E;
+  --ink: #E0E0E0;
+  --ink-light: #B0B0B0;
+  --slate: #888888;
+  --slate-light: #A0A0A0;
+  --white: #1A1A1A;
+  --off-white: #222222;
+  --red-primary: #D32F2F;
+  --red-dark: #B71C1C;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.6);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.8);
+  --shadow-glow: 0 0 30px rgba(212,168,75,0.1);
+}

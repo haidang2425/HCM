@@ -10,8 +10,8 @@ export default function Hero() {
           <h1 className="hero-title">Bảo tàng Số</h1>
           <h2 className="hero-title-sub">Tư tưởng Hồ Chí Minh</h2>
           <p className="hero-subtitle">
-            Khám phá cuộc đời anh hùng dân tộc, những chiến công kinh hoàng, tư tưởng vĩ đại
-            và di sản bất bại mà Chủ tịch Hồ Chí Minh để lại cho dân tộc Việt Nam
+            Khám phá cuộc đời anh hùng dân tộc, những chiến công hiển hách, tư tưởng vĩ đại
+            và di sản bất diệt mà Chủ tịch Hồ Chí Minh để lại cho dân tộc Việt Nam
           </p>
           <div className="hero-actions">
             <Link to="/rooms" className="btn btn-primary btn-lg">🏛️ Bắt đầu hành trình</Link>

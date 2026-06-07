@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function Footer() {
   return (
     <footer className="footer">
@@ -9,10 +11,10 @@ export default function Footer() {
           </div>
           <div className="footer-links">
             <h4>Khám phá</h4>
-            <a href="/#/rooms">Phòng triển lãm</a>
-            <a href="/#/timeline">Dòng thời gian</a>
-            <a href="/#/map">Bản đồ tương tác</a>
-            <a href="/#/quiz">Bài kiểm tra</a>
+            <Link to="/rooms">Phòng triển lãm</Link>
+            <Link to="/timeline">Dòng thời gian</Link>
+            <Link to="/map">Bản đồ tương tác</Link>
+            <Link to="/quiz">Bài kiểm tra</Link>
           </div>
           <div className="footer-quote">
             <blockquote>"Không có gì quý hơn độc lập tự do"</blockquote>
