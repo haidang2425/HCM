@@ -224,7 +224,7 @@ export default function QuizBank() {
                 {q.difficulty === 'easy' ? 'Dễ' : q.difficulty === 'hard' ? 'Khó' : 'Trung bình'}
               </span>
               <span style={{ fontSize: '0.85rem', color: 'var(--slate)', background: 'var(--cream)', padding: '4px 12px', borderRadius: '20px' }}>
-                {q.chapter_title}
+                {q.chapter && q.chapter.match(/chuong_(\d+)/) ? `Chương ${q.chapter.match(/chuong_(\d+)/)[1]}` : 'Tổng hợp'}
               </span>
             </div>
             
@@ -282,7 +282,7 @@ export default function QuizBank() {
                 ← Câu trước
               </button>
               <button
-                className="btn btn-outline"
+                className="btn btn-primary"
                 onClick={handleQuit}
                 style={{flex: 1, minWidth: '100px'}}
               >
