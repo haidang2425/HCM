@@ -9,7 +9,6 @@ export default function QuizBank() {
   
   // Filters
   const [chapterFilter, setChapterFilter] = useState('all');
-  const [levelFilter, setLevelFilter] = useState('all');
   const [countFilter, setCountFilter] = useState(30);
 
   const [current, setCurrent] = useState(0);
@@ -32,13 +31,10 @@ export default function QuizBank() {
     if (chapterFilter !== 'all') {
       filtered = filtered.filter(q => q.chapter === chapterFilter);
     }
-    if (levelFilter !== 'all') {
-      filtered = filtered.filter(q => q.difficulty === levelFilter);
-    }
     
     // Shuffle and pick
     const shuffled = [...filtered].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, countFilter);
+    const selected = countFilter === 'all' ? shuffled : shuffled.slice(0, countFilter);
     
     if (selected.length === 0) {
       alert("Không tìm thấy câu hỏi phù hợp với bộ lọc!");
@@ -111,31 +107,20 @@ export default function QuizBank() {
               </select>
             </div>
             
-            <div>
-              <label style={{display: 'block', fontWeight: 'bold', marginBottom: '5px'}}>Mức độ</label>
-              <select 
-                value={levelFilter} 
-                onChange={e => setLevelFilter(e.target.value)}
-                style={{width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid var(--slate-light)'}}
-              >
-                <option value="all">Tất cả mức độ</option>
-                <option value="easy">Dễ</option>
-                <option value="medium">Trung bình</option>
-                <option value="hard">Khó</option>
-              </select>
-            </div>
+
             
             <div>
               <label style={{display: 'block', fontWeight: 'bold', marginBottom: '5px'}}>Số lượng câu hỏi</label>
               <select 
                 value={countFilter} 
-                onChange={e => setCountFilter(Number(e.target.value))}
+                onChange={e => setCountFilter(e.target.value === 'all' ? 'all' : Number(e.target.value))}
                 style={{width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid var(--slate-light)'}}
               >
                 <option value={10}>10 câu</option>
                 <option value={20}>20 câu</option>
                 <option value={30}>30 câu</option>
                 <option value={50}>50 câu</option>
+                <option value="all">Toàn bộ ({allQuestions.length} câu)</option>
               </select>
             </div>
           </div>

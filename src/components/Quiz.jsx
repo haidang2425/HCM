@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { quizData } from '../data/quizData';
 import { useNavigate } from 'react-router-dom';
 
 export default function Quiz() {
+  const [quizData, setQuizData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState(null);
   const [showFeedback, setShowFeedback] = useState(false);
@@ -11,14 +12,32 @@ export default function Quiz() {
   const [showResult, setShowResult] = useState(false);
   const navigate = useNavigate();
 
-  const q = quizData[current];
-  const levelColors = { 'Cơ bản': '#4CAF50', 'Trung bình': '#FF9800', 'Nâng cao': '#C41E3A' };
+  useEffect(() => {
+    // T?i ng�n h�ng d? thi kh?ng l? v� ng?u nhi�n ch?n 10 c�u
+    import('../data/hcm_quiz_verified_public.json').then(module => {
+      const allQuestions = module.default.questions || [];
+      const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
+      setQuizData(shuffled.slice(0, 10));
+      setLoading(false);
+    });
+  }, []);
 
-  const handleAnswer = (idx) => {
+  const saveWrongQuestion = (q) => {
+    const saved = JSON.parse(localStorage.getItem('hcm_wrong_questions') || '[]');
+    if (!saved.find(sq => sq.id === q.id)) {
+      saved.push(q);
+      localStorage.setItem('hcm_wrong_questions', JSON.stringify(saved));
+    }
+  };
+
+  const handleAnswer = (idx, isCorrect) => {
     if (showFeedback) return;
     setSelected(idx);
     setAnswers(prev => ({ ...prev, [current]: idx }));
     setShowFeedback(true);
+    if (!isCorrect) {
+      saveWrongQuestion(quizData[current]);
+    }
   };
 
   const handleNext = () => {
@@ -31,39 +50,57 @@ export default function Quiz() {
     }
   };
 
-  const score = quizData.reduce((acc, q, i) => acc + (answers[i] === q.answer ? 1 : 0), 0);
+  if (loading) {
+    return (
+      <div className="section text-center">
+        <div className="container">
+          <h2>�ang t?i ng�n h�ng c�u h?i...</h2>
+        </div>
+      </div>
+    );
+  }
+
+  const q = quizData[current];
+  const levelColors = { 'easy': '#4CAF50', 'medium': '#FF9800', 'hard': '#C41E3A' };
+  
+  const correctIdx = q.options.findIndex(opt => opt.key === q.answer_key);
+  const isCorrect = selected === correctIdx;
+
+  const score = quizData.reduce((acc, q, i) => {
+    const cIdx = q.options.findIndex(opt => opt.key === q.answer_key);
+    return acc + (answers[i] === cIdx ? 1 : 0);
+  }, 0);
+  
   const pct = Math.round((score / quizData.length) * 100);
 
   if (showResult) {
-    const grade = pct >= 80 ? 'A' : pct >= 60 ? 'B' : pct >= 40 ? 'C' : 'D';
-    const msg = pct >= 80 ? 'Xuất sắc! Bạn hiểu rất rõ về tư tưởng Hồ Chí Minh.' :
-                pct >= 60 ? 'Tốt! Hãy tiếp tục tìm hiểu thêm.' :
-                pct >= 40 ? 'Khá. Cần ôn tập thêm một chút.' : 'Cần cố gắng học tập thêm.';
-    const gradeColor = pct >= 80 ? '#4CAF50' : pct >= 60 ? '#FF9800' : pct >= 40 ? '#2196F3' : '#f44336';
+    const gradeColor = pct >= 80 ? '#4CAF50' : pct >= 50 ? '#FF9800' : '#f44336';
     return (
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="section text-center">
         <div className="container">
           <div className="quiz-result-card">
-            <div className="quiz-result-icon">{pct >= 80 ? '🏆' : pct >= 60 ? '🎉' : '📚'}</div>
-            <h2>Kết quả bài kiểm tra</h2>
+            <div className="quiz-result-icon">{pct >= 80 ? '??' : pct >= 50 ? '??' : '??'}</div>
+            <h2>K?t qu? b�i ki?m tra</h2>
             <div className="quiz-score-circle" style={{ borderColor: gradeColor }}>
               <span className="quiz-score">{score}/{quizData.length}</span>
               <span className="quiz-pct">{pct}%</span>
-              <span className="quiz-grade" style={{ color: gradeColor }}>{grade}</span>
             </div>
-            <p className="quiz-msg">{msg}</p>
             <div className="quiz-result-breakdown">
-              <span className="breakdown-correct">✅ Đúng: {score}</span>
-              <span className="breakdown-incorrect">❌ Sai: {quizData.length - score}</span>
+              <span className="breakdown-correct">? ��ng: {score}</span>
+              <span className="breakdown-incorrect">? Sai: {quizData.length - score}</span>
             </div>
-            <div className="quiz-actions">
+            <div className="quiz-actions" style={{marginTop: '20px'}}>
               <button className="btn btn-primary" onClick={() => {
-                setCurrent(0); setAnswers({}); setSelected(null);
-                setShowFeedback(false); setShowResult(false);
-              }}>Làm lại</button>
-              <button className="btn btn-gold" onClick={() => navigate('/certificate?score=' + score + '&total=' + quizData.length)}>
-                Nhận chứng nhận
-              </button>
+                const allQs = [...quizData].sort(() => 0.5 - Math.random()); // Reshuffle for replay?
+                // Actually reloading the page is easier for random 10
+                window.location.reload();
+              }}>L�m l?i (Ng?u nhi�n)</button>
+              <button className="btn btn-outline" onClick={() => navigate('/review')}>�n c�u sai</button>
+              {pct >= 50 && (
+                <button className="btn btn-gold" onClick={() => navigate('/certificate?score=' + score + '&total=' + quizData.length)}>
+                  Nh?n ch?ng nh?n
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -71,12 +108,10 @@ export default function Quiz() {
     );
   }
 
-  const isCorrect = selected === q.answer;
-
   const getOptionClass = (idx) => {
     if (!showFeedback) return selected === idx ? 'selected' : '';
-    if (idx === q.answer) return 'correct';
-    if (idx === selected && idx !== q.answer) return 'incorrect';
+    if (idx === correctIdx) return 'correct';
+    if (idx === selected && idx !== correctIdx) return 'incorrect';
     return 'dimmed';
   };
 
@@ -99,7 +134,15 @@ export default function Quiz() {
             transition={{ duration: 0.25 }}
             className="quiz-card"
           >
-            <span className="quiz-level" style={{ background: levelColors[q.level] }}>{q.level}</span>
+            <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '15px'}}>
+              <span className="quiz-level" style={{ background: levelColors[q.difficulty] || '#FF9800' }}>
+                {q.difficulty === 'easy' ? 'D?' : q.difficulty === 'hard' ? 'Kh�' : 'Trung b�nh'}
+              </span>
+              <span style={{ fontSize: '0.85rem', color: 'var(--slate)', background: 'var(--cream)', padding: '4px 12px', borderRadius: '20px' }}>
+                {q.chapter_title}
+              </span>
+            </div>
+            
             <h3 className="quiz-question">{q.question}</h3>
 
             <div className="quiz-options">
@@ -107,14 +150,14 @@ export default function Quiz() {
                 <motion.button
                   key={idx}
                   className={'quiz-option ' + getOptionClass(idx)}
-                  onClick={() => handleAnswer(idx)}
+                  onClick={() => handleAnswer(idx, idx === correctIdx)}
                   whileTap={!showFeedback ? { scale: 0.98 } : {}}
                   disabled={showFeedback}
                 >
-                  <span className="quiz-opt-letter">{String.fromCharCode(65 + idx)}</span>
-                  <span>{opt}</span>
-                  {showFeedback && idx === q.answer && <span className="quiz-opt-check">✓</span>}
-                  {showFeedback && idx === selected && idx !== q.answer && <span className="quiz-opt-cross">✗</span>}
+                  <span className="quiz-opt-letter">{opt.key}</span>
+                  <span>{opt.text}</span>
+                  {showFeedback && idx === correctIdx && <span className="quiz-opt-check">?</span>}
+                  {showFeedback && idx === selected && idx !== correctIdx && <span className="quiz-opt-cross">?</span>}
                 </motion.button>
               ))}
             </div>
@@ -129,23 +172,27 @@ export default function Quiz() {
                   className={'quiz-feedback ' + (isCorrect ? 'feedback-correct' : 'feedback-incorrect')}
                 >
                   <div className="quiz-feedback-title">
-                    {isCorrect ? '✅ Chính xác!' : '❌ Chưa đúng!'}
+                    {isCorrect ? '? Ch�nh x�c!' : '? Chua d�ng!'}
                     {!isCorrect && (
-                      <span className="quiz-feedback-correct-ans">
-                        Đáp án đúng: <strong>{String.fromCharCode(65 + q.answer)}. {q.options[q.answer]}</strong>
+                      <span className="quiz-feedback-correct-ans" style={{display: 'block', marginTop: '10px'}}>
+                        ��p �n d�ng: <strong>{q.options[correctIdx].key}. {q.options[correctIdx].text}</strong>
                       </span>
                     )}
                   </div>
-                  <p className="quiz-feedback-explanation">{q.explanation}</p>
-                  <div className="quiz-feedback-source">
-                    📚 Kiến thức này nằm ở: <strong>{q.source}</strong>
+                  
+                  <p className="quiz-feedback-explanation" style={{marginTop: '15px', fontStyle: 'italic'}}>
+                    {q.explanation_short || q.explanation}
+                  </p>
+                  
+                  <div style={{display: 'flex', gap: '10px', marginTop: '20px'}}>
+                    <button
+                      className={'btn ' + (current === quizData.length - 1 ? 'btn-gold' : 'btn-primary')}
+                      onClick={handleNext}
+                      style={{flexGrow: 1, justifyContent: 'center'}}
+                    >
+                      {current === quizData.length - 1 ? '?? Xem k?t qu?' : 'C�u ti?p ?'}
+                    </button>
                   </div>
-                  <button
-                    className={'btn mt-8 ' + (current === quizData.length - 1 ? 'btn-gold' : 'btn-primary')}
-                    onClick={handleNext}
-                  >
-                    {current === quizData.length - 1 ? '🏁 Xem kết quả' : 'Câu tiếp →'}
-                  </button>
                 </motion.div>
               )}
             </AnimatePresence>
