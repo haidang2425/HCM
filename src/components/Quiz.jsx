@@ -2,6 +2,42 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
+// Helper to parse and render markdown-style links [label](url)
+const renderExplanation = (text) => {
+  if (!text) return null;
+  const regex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
+  const parts = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = regex.exec(text)) !== null) {
+    const matchIndex = match.index;
+    if (matchIndex > lastIndex) {
+      parts.push(text.substring(lastIndex, matchIndex));
+    }
+    const label = match[1];
+    const url = match[2];
+    parts.push(
+      <a 
+        key={matchIndex} 
+        href={url} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        style={{ color: 'var(--red-dark, #C41E3A)', textDecoration: 'underline', fontWeight: 'bold' }}
+      >
+        {label}
+      </a>
+    );
+    lastIndex = regex.lastIndex;
+  }
+
+  if (lastIndex < text.length) {
+    parts.push(text.substring(lastIndex));
+  }
+
+  return parts.length > 0 ? parts : text;
+};
+
 export default function Quiz() {
   const [quizData, setQuizData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -195,7 +231,7 @@ export default function Quiz() {
                   </div>
                   
                   <p className="quiz-feedback-explanation" style={{marginTop: '15px', fontStyle: 'italic'}}>
-                    {q.explanation_short || q.explanation}
+                    {renderExplanation(q.explanation_short || q.explanation)}
                   </p>
                 </motion.div>
               )}

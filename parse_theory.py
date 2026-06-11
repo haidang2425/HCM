@@ -1,6 +1,18 @@
 import re
 import json
 
+def split_section(text, heading):
+    if heading not in text:
+        return ""
+    part = text.split(heading)[1]
+    next_headers = ['\n# ', '\n## ', '\n### ']
+    min_idx = len(part)
+    for h in next_headers:
+        idx = part.find(h)
+        if idx != -1 and idx < min_idx:
+            min_idx = idx
+    return part[:min_idx].strip()
+
 def parse_markdown():
     with open('src/data/hcm_theory_content.md', 'r', encoding='utf-8') as f:
         content = f.read()
@@ -29,13 +41,12 @@ def parse_markdown():
             # Find Tóm tắt
             summary = ""
             if '### Tóm tắt' in l_block:
-                s_part = l_block.split('### Tóm tắt')[1].split('### ')[0]
-                summary = s_part.strip()
+                summary = split_section(l_block, '### Tóm tắt')
             
             # Find Nội dung chính
             details = []
             if '### Nội dung chính' in l_block:
-                main_part = l_block.split('### Nội dung chính')[1].split('### ')[0]
+                main_part = split_section(l_block, '### Nội dung chính')
                 
                 # Split by ####
                 if '#### ' in main_part:
@@ -44,26 +55,28 @@ def parse_markdown():
                         h4 = h4.strip()
                         h_title = h4.split('\n')[0].strip()
                         h_body = '\n'.join(h4.split('\n')[1:]).strip()
-                        details.append({"heading": h_title, "body": [h_body]})
+                        h_body_paras = [p.strip() for p in h_body.split('\n') if p.strip()]
+                        details.append({"heading": h_title, "body": h_body_paras})
                 else:
-                    details.append({"heading": "Nội dung", "body": [main_part.strip()]})
+                    main_paras = [p.strip() for p in main_part.split('\n') if p.strip()]
+                    details.append({"heading": "Nội dung", "body": main_paras})
             
             # Find Flashcards
             flashcards = []
             if '### Flashcards' in l_block:
-                fc_part = l_block.split('### Flashcards')[1].split('### ')[0]
+                fc_part = split_section(l_block, '### Flashcards')
                 fc_lines = fc_part.strip().split('\n')
                 
                 current_q = ""
                 current_a = ""
                 for line in fc_lines:
                     if line.startswith('- **Hỏi:**'):
-                        if current_q:
-                            flashcards.append({"front": current_q, "back": current_a})
-                        current_q = line.replace('- **Hỏi:**', '').strip()
-                        current_a = ""
+                         if current_q:
+                             flashcards.append({"front": current_q, "back": current_a})
+                         current_q = line.replace('- **Hỏi:**', '').strip()
+                         current_a = ""
                     elif line.startswith('  **Đáp:**'):
-                        current_a = line.replace('  **Đáp:**', '').strip()
+                         current_a = line.replace('  **Đáp:**', '').strip()
                 if current_q:
                     flashcards.append({"front": current_q, "back": current_a})
 

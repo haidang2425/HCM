@@ -36,7 +36,7 @@ export default function Theory() {
         </aside>
 
         <main className="theory-main">
-          <TheoryChapter chapter={activeChapter} />
+          <TheoryChapter key={activeChapter.id} chapter={activeChapter} />
         </main>
       </div>
     </div>
